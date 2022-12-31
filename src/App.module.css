@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Gaegu', cursive;
+  font-size: 1.05em;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  min-width: 315px;
+}
+
+html::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+h1 {
+  font-size: 1.7em;
+}
+
+h2 {
+  font-size: 1.4em;
+}
+
+.section_favorites,
+.section_main,
+.section_devices,
+.section_donations,
+.section_login {
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 50px;
+}
+
+.favorite_boxes,
+.main_boxes,
+.devices_boxes {
+  display: flex;
+  overflow: auto;
+}
+
+.main_boxes,
+.devices_boxes {
+  flex-direction: column;
+}
+
+.favorite_boxes > *,
+.main_boxes > *,
+.devices_boxes > * {
+  margin: 30px;
+}
+
+@media screen and (max-width: 800px) {
+  .section_favorites,
+  .section_main,
+  .section_devices,
+  .section_donations,
+  .section_login {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 25px;
+  }
+  
+  .favorite_boxes,
+  .main_boxes,
+  .devices_boxes {
+    display: flex;
+    overflow: auto;
+  }
+  
+  .main_boxes,
+  .devices_boxes {
+    flex-direction: column;
+  }
+  
+  .favorite_boxes > *,
+  .main_boxes > *,
+  .devices_boxes > * {
+    margin: 15px;
+  }
+}

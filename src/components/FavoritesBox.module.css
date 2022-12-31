@@ -1,0 +1,55 @@
+.favorites_box {
+    padding: 10px;
+    border: 5px solid black;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.favorites_box:hover {
+    cursor: pointer;
+    background-color: rgb(230, 230, 230);
+}
+
+.favorites_box_delete {
+    background-color: rgb(253, 77, 77);
+}
+
+.favorites_box_delete:hover {
+    background-color: rgb(253, 77, 77);
+}
+
+.favorites_can {
+    display: none;
+}
+
+.favorites_box:hover  .favorites_can {
+    display: block;
+    right: 10px;
+    top: 10px;
+    color:rgb(192, 192, 192);
+    position: absolute;
+}
+
+.favorites_can:hover {
+    color: rgb(116, 116, 116) !important;
+}
+
+.favorites_image {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .favorites_box {
+        width: 100px !important;
+        height: 100px !important;
+    }
+}

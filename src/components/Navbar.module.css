@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
+
+.navbar {
+    display: flex;
+    padding: 20px;
+    background-color: rgb(244, 244, 244);
+    justify-content: space-around;
+    align-items: center;
+}
+
+.title {
+    font-family: 'Patrick Hand SC', cursive;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+    .title {
+        font-size: 1.2em;
+    }
+}
+
+.burger {
+    display: flex;
+    flex-direction: column;
+    width: 35px;
+    cursor: pointer;
+}
+
+.line {
+    display: block;
+    height: 4px;
+    width: 100%;
+    margin: 4px;
+    border-radius: 10px;
+    background: #0e2431;
+}
+
+.active:first-child {
+    animation: rotate_cw 0.2s linear forwards;
+}
+
+.active:nth-child(2) {
+    display: none;
+}
+
+.active:last-child {
+    animation: rotate_ccw 0.2s linear forwards;    
+}
+
+@keyframes rotate_cw {
+    0% {
+        transform: rotate(0) translate(0, 0);
+        
+    }
+    100% {
+        transform: rotate(0.125turn) translateX(4px) translateY(4px);
+    }
+}
+
+@keyframes rotate_ccw {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(-0.125turn) translateX(4px) translateY(-4px);
+    }
+}

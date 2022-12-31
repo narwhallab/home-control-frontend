@@ -1,0 +1,30 @@
+.password {
+    border: 3px solid black;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 300px;
+}
+
+.button {
+    width: 300px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border-radius: 15px;
+    border: none;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container > * {
+    margin: 15px;
+}
