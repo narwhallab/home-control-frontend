@@ -35,4 +35,23 @@ const FavoritesBox = ({img, title, onClick, remove, cleanup}) => {
     )
 }
 
-export default FavoritesBox
+const FavoritesBoxes = ({favorites, devices, toggleControlPopup, removeFavorite, toggleFavoritesPopup}) => {
+    return (
+        <>
+        {
+            favorites.map((id, index) => 
+              <FavoritesBox 
+                img={devices[id].img}
+                title={devices[id].name}
+                key={index}
+                onClick={() => toggleControlPopup(devices[id])}
+                remove={() => removeFavorite(id)}
+                cleanup={() => toggleControlPopup(null)} />
+            )
+          }
+          <FavoritesBox img="/plus.jpg" title="ADD" onClick={toggleFavoritesPopup} />
+        </>
+    )
+}
+
+export { FavoritesBoxes, FavoritesBox }

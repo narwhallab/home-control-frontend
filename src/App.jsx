@@ -1,20 +1,24 @@
 import styles from './App.module.css';
 import Navbar from './components/Navbar'
-import FavoritesBox from './components/FavoritesBox';
-import MainBox from './components/MainBox';
+import {FavoritesBoxes} from './components/FavoritesBox';
+import {MainBoxes,MainBox} from './components/MainBox';
 import { useEffect, useState } from 'react';
 import Popup from './components/Popup';
 import Picker from './components/Picker';
+import Range from './components/Range';
 import axios from 'axios'
 import Login from './components/Login';
 import { host } from './globals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { getCookie } from './util/cookies';
+
+const access_key = getCookie("access_key")
 
 const controlDevice = (device, data) => {
   axios.post(`${host}/api/control_device`, JSON.stringify({
-    deviceId: device.id,
+    device_id: device.id,
     data
-  }), { headers: { "Content-Type": "application/json" } })
+  }), { headers: { "Content-Type": "application/json", "Authorization": `bearer ${access_key}` } })
 }
 
 const ControlOptions = ({device}) => {
@@ -22,10 +26,11 @@ const ControlOptions = ({device}) => {
     controlDevice(device, { [name]: value })
   }
 
-  return device.controlOptions.map((option, index) => 
+  return device.ctrl_opts.map((option, index) => 
     <div key={index}>
       <h2 style={{display: "inline"}}>{option.name}:</h2>
       { option.type == "picker" ? <Picker options={option} setValue={setValue} /> : "" }
+      { option.type == "range" ? <Range options={option} setValue={setValue} /> : "" }
     </div>
   )
 }
@@ -36,34 +41,13 @@ const DefaultScene = ({toggleFavoritesPopup, toggleControlPopup, devices, favori
       <section className={styles.section_favorites}>
         <h1>즐겨찾기</h1>
         <div className={styles.favorite_boxes}>
-          {
-            favorites.map((id, index) => 
-              <FavoritesBox 
-                img={devices[id].img}
-                title={devices[id].title}
-                key={index}
-                onClick={() => toggleControlPopup(devices[id])}
-                remove={() => removeFavorite(id)}
-                cleanup={() => toggleControlPopup(null)} />
-            )
-          }
-          <FavoritesBox img="/plus.jpg" title="ADD" onClick={toggleFavoritesPopup} />
+          <FavoritesBoxes favorites={favorites} devices={devices} removeFavorite={removeFavorite} toggleControlPopup={toggleControlPopup} toggleFavoritesPopup={toggleFavoritesPopup} />
         </div>
       </section>
       <section className={styles.section_main}>
         <h1>제어</h1>
         <div className={styles.main_boxes}>
-          {
-            devices.map((device, index) => 
-              <MainBox 
-                img={device.img}
-                title={device.title}
-                desc={device.desc}
-                key={index}
-                onClick={() => toggleControlPopup(device)}  />
-            )
-          }
-          <MainBox img="/plus.jpg" title="ADD" desc="새로운 기기 추가하기" />
+          <MainBoxes devices={devices} toggleControlPopup={toggleControlPopup} />
         </div>
       </section>
     </>
@@ -132,6 +116,7 @@ function App() {
   }, [])
 
   const toggleControlPopup = (device) => {
+    console.log(device)
     if (device == null) {
       setControlPopup(null)
       return
@@ -173,11 +158,12 @@ function App() {
   }
 
   let FavoritePopup = () =>
-    <Popup exit={() => setFavoritesPopup(false)} count={devices.filter(device => !favorites.includes(device.id)).length} title={"Add Favorites"}>
+    <Popup exit={() => setFavoritesPopup(false)} count={Object.keys(devices).filter(id => !favorites.includes(id)).length} title={"Add Favorites"}>
       {
-        devices.map((device, index) => {
+        Object.keys(devices).map((id, index) => {
+          let device = devices[id]
           if (!favorites.includes(device.id)) {
-            return (<MainBox img={device.img} title={device.title} desc={device.desc} key={index} onClick={() => addFavorite(device)} />)
+            return (<MainBox img={device.img} title={device.name} desc={device.desc} key={index} onClick={() => addFavorite(device)} />)
           }
         })
       }
@@ -188,7 +174,7 @@ function App() {
   const MainPage = () => (
     <>
       { isDS ? DS : MS }
-      { favoritesPopup ?  <FavoritePopup /> : "" }
+      { favoritesPopup ? <FavoritePopup /> : "" }
       { controlPopup ? <ControlModePopup /> : "" }
     </>
   )
