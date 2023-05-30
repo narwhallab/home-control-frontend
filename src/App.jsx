@@ -11,6 +11,7 @@ import Login from './components/Login';
 import { host } from './globals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { getCookie } from './util/cookies';
+import ReadData from './components/ReadData';
 
 const access_key = getCookie("access_key")
 
@@ -18,7 +19,20 @@ const controlDevice = (device, data) => {
   axios.post(`${host}/api/control_device`, JSON.stringify({
     device_id: device.id,
     data
-  }), { headers: { "Content-Type": "application/json", "Authorization": `bearer ${access_key}` } })
+  }), { headers: { "Content-Type": "application/json", "Authorization": `bearer ${access_key}` } }).catch(e => {
+    alert("Failed to Control Device")
+  })
+}
+
+const retrieveData = (device, callback) => {
+  axios.post(`${host}/api/fetch_info`, JSON.stringify({
+    device_id: device.id,
+  }), { headers: { "Content-Type": "application/json", "Authorization": `bearer ${access_key}` } }).catch(e => {
+    alert("Failed to Control Device")
+  })
+  .then(res => {
+    callback(res.data)
+  })
 }
 
 const ControlOptions = ({device}) => {
@@ -31,6 +45,7 @@ const ControlOptions = ({device}) => {
       <h2 style={{display: "inline"}}>{option.name}:</h2>
       { option.type == "picker" ? <Picker options={option} setValue={setValue} /> : "" }
       { option.type == "range" ? <Range options={option} setValue={setValue} /> : "" }
+      { option.type == "read" ? <ReadData device={device} retrieveData={retrieveData} /> : "" }
     </div>
   )
 }
@@ -116,7 +131,6 @@ function App() {
   }, [])
 
   const toggleControlPopup = (device) => {
-    console.log(device)
     if (device == null) {
       setControlPopup(null)
       return
