@@ -11,12 +11,12 @@ const FavoritesBox = ({img, title, onClick, remove, cleanup}) => {
         }
     }
 
-    const startTimer = (clazz) => {
+    const startTimer = (element) => {
+        let parent = element.closest(`.${styles.favorites_box}`)
         if (title != "ADD") {
-            let element = document.querySelector(`.${clazz}`) 
 
             timeout = window.setTimeout(() => {
-                element.classList.add(styles.favorites_box_delete)
+                parent.classList.add(styles.favorites_box_delete)
                 window.setTimeout(() => {
                     remove()
                     cleanup()
@@ -27,7 +27,13 @@ const FavoritesBox = ({img, title, onClick, remove, cleanup}) => {
         }
     }
     return (
-        <div className={styles.favorites_box} onTouchStart={() => startTimer(styles.favorites_box)} onTouchEnd={endTimer} onMouseDown={() => startTimer(styles.favorites_box)} onMouseUp={endTimer}>
+        <div 
+            className={styles.favorites_box} 
+            onTouchStart={(e) => startTimer(e.target)} 
+            onTouchEnd={endTimer} 
+            onMouseDown={(e) => startTimer(e.target)} 
+            onMouseUp={endTimer}>
+
             {title != "ADD" ? <span className={styles.favorites_can}><FaRegTrashAlt /></span> : ""}
             <img src={img} className={styles.favorites_image} />
             <h3>{title}</h3>

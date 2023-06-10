@@ -33,6 +33,7 @@ h2 {
 .section_main,
 .section_devices,
 .section_donations,
+.section_logout,
 .section_login {
   padding-left: 100px;
   padding-right: 100px;
@@ -61,6 +62,7 @@ h2 {
   .section_favorites,
   .section_main,
   .section_devices,
+  .section_logout,
   .section_donations,
   .section_login {
     padding-left: 50px;

@@ -8,15 +8,19 @@ import Picker from './components/Picker';
 import Range from './components/Range';
 import axios from 'axios'
 import Login from './components/Login';
-import { host } from './globals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { getCookie } from './util/cookies';
+import { getCookie, expireCookie } from './util/cookies';
 import ReadData from './components/ReadData';
 
 const access_key = getCookie("access_key")
 
+const logout = () => {
+  expireCookie("access_key")
+  window.location.href = "/login"
+}
+
 const controlDevice = (device, data) => {
-  axios.post(`${host}/api/control_device`, JSON.stringify({
+  axios.post(`/api/control_device`, JSON.stringify({
     device_id: device.id,
     data
   }), { headers: { "Content-Type": "application/json", "Authorization": `bearer ${access_key}` } }).catch(e => {
@@ -25,7 +29,7 @@ const controlDevice = (device, data) => {
 }
 
 const retrieveData = (device, callback) => {
-  axios.post(`${host}/api/fetch_info`, JSON.stringify({
+  axios.post(`/api/fetch_info`, JSON.stringify({
     device_id: device.id,
   }), { headers: { "Content-Type": "application/json", "Authorization": `bearer ${access_key}` } }).catch(e => {
     alert("Failed to Control Device")
@@ -91,10 +95,17 @@ function MenuScene({serverInfo}) {
           <MainBox img="/laptop.jpg" title={serverInfo.hostname} desc={serverInfo.version} />
         </div>
       </section>
+      <section className={styles.section_logout}>
+        <h1>로그아웃</h1>
+        <div className={styles.devices_boxes}>
+         <MainBox img="/laptop.jpg" title="Logout" desc="Logout from the current session" onClick={() => logout()} />
+        </div>
+      </section>
       <section className={styles.section_donations}>
         <h1>후원하기</h1>
-        <div className={styles.donations}>
-          <p>후원은 아직 준비중입니다</p>
+        <div className={styles.devices_boxes}>
+         <MainBox img="/laptop.jpg" title="Toss" desc="Any help appreciated" onClick={() => window.location.href = "https://toss.me/dolphin241"} />
+         <MainBox img="/laptop.jpg" title="GitHub" desc="Sponsor me on GitHub" onClick={() => window.location.href = "https://github.com/sponsors/dolphin2410"} />
         </div>
       </section>
     </>
@@ -124,10 +135,10 @@ function App() {
   let [isDS, setIsDS] = useState(true)
 
   useEffect(async () => {
-    setDevices((await axios.get(`${host}/api/list_devices`)).data)
+    setDevices((await axios.get(`/api/list_devices`)).data)
     setFavorites(getFavoritesDB())
 
-    setServerInfo((await axios.get(`${host}/api/server_info`)).data)
+    setServerInfo((await axios.get(`/api/server_info`)).data)
   }, [])
 
   const toggleControlPopup = (device) => {
@@ -198,7 +209,7 @@ function App() {
       <Navbar sceneToggle={() => setIsDS(!isDS)} startScene={() => setIsDS(true)} />
       <BrowserRouter>
         <Routes>
-          <Route index element={<MainPage />} />
+          <Route index element={<MainPage />}  />
           <Route path='/login' element={<LoginScene />} />
         </Routes>
       </BrowserRouter>

@@ -24,7 +24,7 @@ const MainBoxes = ({devices, toggleControlPopup}) => {
                     onClick={() => toggleControlPopup(devices[id])}  />
                 )
             }
-            <MainBox img="/plus.jpg" title="ADD" desc="새로운 기기 추가하기" />
+            {/* <MainBox img="/plus.jpg" title="ADD" desc="새로운 기기 추가하기" /> */}
         </>
     )
 }
