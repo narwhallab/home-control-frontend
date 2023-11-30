@@ -1,0 +1,13 @@
+.security-container-menu {
+    border: 1px solid var(--nav-color);
+    border-radius: 10px;
+    padding: 100px;
+    margin: 100px;
+    height: 100%;
+}
+
+.security-container-title {
+    padding-top: 60px;
+    font-size: 3rem;
+    text-align: center;
+}

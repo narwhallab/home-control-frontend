@@ -1,0 +1,20 @@
+.login-container-menu {
+    margin: 100px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container-title {
+    padding-top: 240px;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.login-container-input {
+    padding: 10px;
+    border: var(--nav-color) 2px solid;
+    width: 300px;
+    border-radius: 20px;
+}
