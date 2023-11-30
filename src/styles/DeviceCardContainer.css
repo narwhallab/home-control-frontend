@@ -27,6 +27,10 @@
     .device-card-container-title {
         grid-column: 1 / span 2;
     }
+
+    .device-card-active {
+        grid-column: 1 / span 2;
+    }
 }
 
 @media screen and (max-width: 850px) {
@@ -35,6 +39,10 @@
     }
     
     .device-card-container-title {
+        grid-column: 1;
+    }
+
+    .device-card-active {
         grid-column: 1;
     }
 }

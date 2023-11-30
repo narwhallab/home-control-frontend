@@ -11,18 +11,31 @@
     grid-template-rows: 8fr 3fr 1fr 3fr;
 }
 
+.device-card-control {
+    display: none;
+}
+
 
 .device-card > * {
     align-self: center;
 }
 
+.device-card.device-card:not(.device-card-active) .device-card-image {
+    justify-self: center;
+}
+
 .device-card-image {
     width: 100px;
-    justify-self: center;
+    grid-column: 1;
 }
 
 .device-card-title {
     font-size: 1.7rem;
+    grid-column: 1;
+}
+
+.device-card-description {
+    grid-column: 1;
 }
 
 .device-card-type {
@@ -32,6 +45,7 @@
     width: 90px;
     text-align: center;
     border-radius: 5px;
+    grid-column: 1;
 }
 
 .device-card-button {
@@ -43,6 +57,7 @@
     border-radius: 10px;
     display: none;
     cursor: pointer;
+    grid-column: 1;
 }
 
 .device-card:not(.device-card-active):hover .device-card-button {
@@ -71,5 +86,17 @@
     /* width: calc(100vw - 80px); */
     margin: 0;
     border: none;
+    grid-column: 1 / span 3;
+    grid-row: 2 !important;
+    width: 600px;
+    grid-template-columns: 1fr 1fr;
+
     /* height: calc(100vh - 160.8px); */
+}
+
+.device-card-active > .device-card-control {
+    display: block;
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    align-self: flex-start;
 }
