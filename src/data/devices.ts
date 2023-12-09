@@ -13,7 +13,7 @@ import lightbulb from "../images/lightbulb.png";
  */
 export class Device {
     id!: string;
-    dev_type!: string;
+    type!: string;
     name!: string;
     desc!: string;
     img!: string;

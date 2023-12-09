@@ -25,7 +25,7 @@ function picker(copts: ControlOptions, device: Device) {
     });
     
     return <div className="control_container">
-        <h1 className="control_title">{ copts.name }</h1>
+        <h3 className="control_title">{ copts.name }</h3>
         <div className="control_section">{ buttonsArray }</div>
     </div>
 }
