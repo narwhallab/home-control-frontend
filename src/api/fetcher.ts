@@ -26,5 +26,19 @@ export async function retrieveData(device: Device): Promise<Object> {
 }
 
 export async function listDevices(): Promise<Device[]> {
-    return await ky.get(`/api/list_devices`).json<Device[]>()
+    let devicePairs = await ky.get(`/api/list_devices`).json<Object>()
+    return Object.values(devicePairs)
+}
+
+export async function controlDevice(device: Device, data: Object): Promise<Object> {
+    return await ky.post(`/api/control_device`, {
+        json: { 
+            device_id: device.id,
+            data
+        }, 
+        headers: { 
+            "Content-Type": "application/json", 
+            "Authorization": `bearer ${access_key}`
+        }
+    }).json<Object>()
 }

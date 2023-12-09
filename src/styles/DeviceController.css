@@ -1,0 +1,29 @@
+.control_section {
+    display: flex;
+    justify-content: space-around;
+    width: 150px;
+}
+
+.control_title {
+
+}
+
+.control_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+}
+
+.control_button {
+    background-color: black;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 20px;
+}
+
+.control_button:hover {
+    background-color: #333;
+    cursor: pointer;
+}

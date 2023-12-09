@@ -9,7 +9,7 @@
  */
 export class ControlOptions {
     name!: string;
-    opt_type!: string;
+    type!: string;
     values!: string[];
     range_min!: number;
     range_max!: number;
