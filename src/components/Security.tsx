@@ -1,6 +1,5 @@
-import DeviceCard from "./DeviceCard";
 import "../styles/Security.css"
-import { Device, sampleDevices } from "../data/devices";
+import { Device } from "../data/devices";
 
 function fillMode(device: Device) {
     let element = document.querySelector(`#${device.id}`)
